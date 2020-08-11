@@ -13,3 +13,4 @@ class LogEntitiesEnum(Enum):
 # e.g models.User >>> User
 class PrefixEnum(Enum):
     User = "USR"
+    FormState = "FRM"
