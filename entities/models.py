@@ -94,6 +94,11 @@ class FormState(BaseClass):
     tracking_number_2 = models.CharField(max_length=255)
     tracking_number_3 = models.CharField(max_length=255)
 
+    user = models.OneToOneField(
+        User,
+        on_delete=models.PROTECT,
+        related_name='form_states')
+
     def __str__(self):
         return f'{self.username}'
 
