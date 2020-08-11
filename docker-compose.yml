@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  template_name_service:
-    image: template_name_image:latest
+  fdfc_backend_service:
+    image: fdfc_backend_image:latest
     build: .
     command: python manage.py runserver 0.0.0.0:8000
-    container_name: template_name_container
+    container_name: fdfc_backend_container
     volumes:
-      - .:/template_name_volume
+      - .:/fdfc_backend_volume
     ports:
-      - "8001:8000"
+      - "9999:8000"
