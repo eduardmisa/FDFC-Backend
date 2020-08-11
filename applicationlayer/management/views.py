@@ -124,6 +124,41 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data,
                         status=status.HTTP_201_CREATED,)
 
+    @action(detail=True,
+            methods=['post'],
+            url_path='save-form-state',
+            name="Save user form state")
+    def get_by_user(self, request, pk=None):
+
+        existing_form_state = models.FormState.objects.filter(
+            user__id=pk).first()
+        
+        if existing_form_state:
+
+            existing_form_state.firstname = request.data.get('firstname')
+            existing_form_state.middlename = request.data.get('middlename')
+            existing_form_state.lastname = request.data.get('lastname')
+            existing_form_state.reference_number_1 = request.data.get('reference_number_1')
+            existing_form_state.reference_number_2 = request.data.get('reference_number_2')
+            existing_form_state.reference_number_3 = request.data.get('reference_number_3')
+            existing_form_state.tracking_number_1 = request.data.get('tracking_number_1')
+            existing_form_state.tracking_number_2 = request.data.get('tracking_number_2')
+            existing_form_state.tracking_number_3 = request.data.get('tracking_number_3')
+
+            existing_form_state.save()
+
+            return Response(FormStateRetrieveSerializer(existing_form_state).data,
+                status=status.HTTP_200_OK)
+        else:
+            body = copy.deepcopy(request.data)
+            body['user'] = request.user.id
+
+            serializer = FormStateCreateSerializer(data=body)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
 
 '''
 FormStateViewSet Viewset
@@ -138,3 +173,23 @@ class FormStateViewSet(CrudViewSet):
     create_serializer = FormStateCreateSerializer
     update_serializer = FormStateUpdateSerializer
     delete_serializer = FormStateDeleteSerializer
+
+    @action(detail=False,
+            methods=['get'],
+            url_path='get-by-user',
+            name="Get user form state")
+    def get_by_user(self, request):
+
+        userCode = self.request.query_params.get('userCode')
+        if userCode :
+            existing_form_state = models.FormState.objects.filter(user__code=userCode).first()
+            if existing_form_state:
+                return Response(self.retrieve_serializer(existing_form_state).data,
+                                status=status.HTTP_200_OK,)
+            else:
+                return Response({"error": "User does not have any form state"},
+                                status=status.HTTP_404_NOT_FOUND,)
+        else:
+            return Response({"error": "userCode nto provided"},
+                            status=status.HTTP_404_NOT_FOUND,)
+

@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django_filters',
 
     'applicationlayer',
-    'datalayer',
     'entities'
 ]
 

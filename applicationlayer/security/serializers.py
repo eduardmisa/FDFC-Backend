@@ -17,6 +17,8 @@ class LoginSerializer(serializers.Serializer):
 
 
 class CurrentUserContextSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    code = serializers.CharField(max_length=255)
     username = serializers.CharField(max_length=255)
     firstname = serializers.CharField(max_length=255)
     middlename = serializers.CharField(max_length=255)

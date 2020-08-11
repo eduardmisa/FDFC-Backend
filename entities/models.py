@@ -25,12 +25,6 @@ class User(BaseClass):
         blank=False,
         null=False,
         max_length=255)
-    email = models.EmailField(
-        unique=True,
-        blank=False,
-        null=False,
-        default="default@default.com",
-        max_length=50)
     firstname = models.CharField(
         blank=False,
         null=False,
