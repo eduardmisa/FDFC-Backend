@@ -76,17 +76,49 @@ class FormState(BaseClass):
         null=False,
         max_length=10)
 
-    firstname = models.CharField(max_length=255)
-    middlename = models.CharField(max_length=255)
-    lastname = models.CharField(max_length=255)
+    current_step = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
 
-    reference_number_1 = models.CharField(max_length=255)
-    reference_number_2 = models.CharField(max_length=255)
-    reference_number_3 = models.CharField(max_length=255)
+    firstname = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
+    middlename = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
+    lastname = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
 
-    tracking_number_1 = models.CharField(max_length=255)
-    tracking_number_2 = models.CharField(max_length=255)
-    tracking_number_3 = models.CharField(max_length=255)
+    reference_number_1 = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
+    reference_number_2 = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
+    reference_number_3 = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
+
+    tracking_number_1 = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
+    tracking_number_2 = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
+    tracking_number_3 = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True)
 
     user = models.OneToOneField(
         User,

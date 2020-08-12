@@ -135,6 +135,7 @@ class UserViewSet(viewsets.ModelViewSet):
         
         if existing_form_state:
 
+            existing_form_state.current_step = request.data.get('current_step')
             existing_form_state.firstname = request.data.get('firstname')
             existing_form_state.middlename = request.data.get('middlename')
             existing_form_state.lastname = request.data.get('lastname')
